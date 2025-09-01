@@ -121,10 +121,13 @@ class CredentialRecord:
     issue_date: str
     expiry_date: str
     status: str
+    cme_required: int              # <-- Add this field
+    cme_credits: int               # <-- And this field
     renewal_requirements: Optional[Dict[str, Any]] = None
     cme_activities: Optional[List[Dict[str, Any]]] = None
     auto_renewal_enabled: bool = False
     reminder_schedule: Optional[List[int]] = None  # Days before expiry
+
 
 @dataclass
 class ScheduleTemplate:
