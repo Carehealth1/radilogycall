@@ -583,5 +583,23 @@ class AppData:
             if rad.name == name:
                 return rad
         return None
+class OpenShift:
+    def __init__(self, date, shift, location, status, assigned=None):
+        self.date = date
+        self.shift = shift
+        self.location = location
+        self.status = status
+        self.assigned_radiologist = assigned
+
+class AppData:
+    def __init__(self):
+        self.open_shifts = [
+            OpenShift("2025-09-07", "Weekend Day", "Main Hospital", "Open"),
+            OpenShift("2025-09-14", "Weekend Night", "Outpatient Center", "Active Bidding"),
+        ]
+        self.radiologists = []
+        self.shift_swap_requests = []
+        self.consultations = []
+        self.secure_messages = []
 
     # Add more comprehensive methods...
