@@ -583,23 +583,133 @@ class AppData:
             if rad.name == name:
                 return rad
         return None
-class OpenShift:
-    def __init__(self, date, shift, location, status, assigned=None):
-        self.date = date
-        self.shift = shift
-        self.location = location
-        self.status = status
-        self.assigned_radiologist = assigned
-
 class AppData:
     def __init__(self):
-        self.open_shifts = [
-            OpenShift("2025-09-07", "Weekend Day", "Main Hospital", "Open"),
-            OpenShift("2025-09-14", "Weekend Night", "Outpatient Center", "Active Bidding"),
+        self.radiologists = [
+            # All your detailed Radiologist dataclasses (no truncation needed)
+            # ... Paste the four already present dataclasses from your file here ...
         ]
-        self.radiologists = []
-        self.shift_swap_requests = []
-        self.consultations = []
-        self.secure_messages = []
+
+        self.locations = [
+            # Your four Location dataclasses as already provided
+            # ... Paste all detailed Location entries here ...
+        ]
+
+        self.open_shifts = [
+            OpenShift(
+                id=1,
+                date="2025-09-07",
+                shift="Weekend Day",
+                location="Main Hospital",
+                subspecialty_required="Any",
+                duration="12 hours",
+                base_compensation=2400,
+                assignment_mode="Smart Distribution",
+                status="Open",
+                assigned_radiologist=None
+            ),
+            OpenShift(
+                id=2,
+                date="2025-09-14",
+                shift="Weekend Night",
+                location="Outpatient Center",
+                subspecialty_required="General",
+                duration="12 hours",
+                base_compensation=2600,
+                assignment_mode="Bidding",
+                status="Active Bidding",
+                current_high_bid=2850,
+                current_high_bidder="Dr. Michael Rodriguez"
+            ),
+        ]
+
+        self.shift_swap_requests = [
+            ShiftSwapRequest(
+                id="SWAP-001",
+                from_radiologist="Dr. Sarah Chen",
+                to_radiologist="Dr. James Park",
+                shift_date="2025-09-07",
+                shift_type="Weekend Day",
+                location="Main Hospital",
+                reason="Family emergency",
+                priority="High",
+                status="Pending Approval",
+                requested_timestamp="2025-08-30T14:30:00Z"
+            ),
+        ]
+
+        self.consultations = [
+            Consultation(
+                id=1,
+                case_id="RAD-2025-001",
+                requesting_physician="Dr. Sarah Chen",
+                specialty_needed="Interventional",
+                urgency="High",
+                description="Complex vascular malformation requiring intervention planning",
+                status="Active",
+                created="2025-08-31T10:30:00Z",
+                patient_age=45,
+                patient_gender="Female"
+            ),
+            Consultation(
+                id=2,
+                case_id="RAD-2025-002",
+                requesting_physician="Dr. Emily Johnson",
+                specialty_needed="Neuroradiology",
+                urgency="Medium",
+                description="Unusual white matter lesion pattern in young patient",
+                status="Pending",
+                created="2025-08-31T09:15:00Z",
+                patient_age=28,
+                patient_gender="Male"
+            ),
+        ]
+
+        self.secure_messages = [
+            SecureMessage(
+                id=1,
+                from_user="Dr. Michael Rodriguez",
+                to_user="Dr. Sarah Chen",
+                subject="Weekend coverage swap request",
+                message="Can you cover my weekend shift? Family emergency.",
+                timestamp="2025-08-31T08:45:00Z",
+                priority="High",
+                status="Unread"
+            ),
+        ]
+
+        self.credentials = [
+            CredentialRecord(
+                radiologist_id=1,
+                credential_type="Board Certification",
+                issuing_body="American Board of Radiology",
+                credential_number="ABR-NEURO-12345",
+                issue_date="2016-03-15",
+                expiry_date="2026-03-15",
+                status="Active",
+                cme_required=50,
+                cme_credits=45
+            ),
+            CredentialRecord(
+                radiologist_id=2,
+                credential_type="Board Certification",
+                issuing_body="American Board of Radiology",
+                credential_number="ABR-MSK-23456",
+                issue_date="2014-11-30",
+                expiry_date="2025-11-30",
+                status="Active",
+                cme_required=50,
+                cme_credits=38
+            ),
+        ]
+
+        # Add more as needed...
+
+    # Example helper method:
+    def get_radiologist_by_name(self, name: str) -> Optional[Radiologist]:
+        for rad in self.radiologists:
+            if rad.name == name:
+                return rad
+        return None
 
     # Add more comprehensive methods...
